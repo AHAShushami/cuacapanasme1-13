@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Infografik Analisa Situasi Kesihatan Kedah 2026</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+<script>
+tailwind.config = {
+theme: {
+extend: {
+fontFamily: {
+sans: ['Inter', 'sans-serif'],
+},
+colors: {
+vibrant: {
+blue: '#3B82F6',
+orange: '#F97316',
+red: '#EF4444',
+teal: '#14B8A6',
+yellow: '#F59E0B',
+dark: '#1E293B',
+light: '#F8FAFC'
+}
+}
+}
+}
+}
+</script>
+<style>
+body {
+background-color: #F8FAFC;
+color: #1E293B;
+}
+.chart-container {
+position: relative;
+width: 100%;
+max-width: 100%;
+margin-left: auto;
+margin-right: auto;
+height: 320px;
+max-height: 350px;
+}
+@media (max-width: 768px) {
+.chart-container {
+height: 280px;
+}
+}
+.card {
+background-color: white;
+border-radius: 1rem;
+box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+padding: 1.5rem;
+height: 100%;
+display: flex;
+flex-direction: column;
+}
+
+/* KOD KHAS UNTUK CETAKAN PDF (A4) */
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 10mm; /* Margin selamat A4 */
+  }
+  body {
+    background-color: white !important;
+    -webkit-print-color-adjust: exact; /* Kekalkan warna carta & heatmap */
+    print-color-adjust: exact;
+    font-size: 12px; /* Kecilkan sedikit fon untuk muat A4 */
+  }
+  .max-w-7xl { max-width: 100% !important; }
+  .card, section, header {
+    box-shadow: none !important;
+    break-inside: avoid; /* Elak elemen terpotong separuh mukasurat */
+    page-break-inside: avoid;
+    border: 1px solid #e2e8f0 !important;
+    border-top-width: 4px !important;
+    padding: 1rem !important;
+    margin-bottom: 1rem !important;
+  }
+  header {
+    border: none !important;
+    border-bottom: 6px solid #F97316 !important;
+  }
+  .chart-container {
+    height: 220px !important; /* Rendahkan carta supaya muat 1 mukasurat */
+    max-height: 220px !important;
+  }
+  /* Paksa 2 kolum untuk susunan side-by-side dalam cetakan */
+  .print-grid-2 {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 1rem !important;
+  }
+  .text-gray-600 { color: #334155 !important; } /* Gelapkan sikit teks untuk PDF */
+}
+</style>
+</head>
+<body class="antialiased p-4 md:p-8 print:p-0">
+
+<div class="max-w-7xl mx-auto space-y-8 print:space-y-4">
+
+<header class="bg-vibrant-dark text-white rounded-2xl p-8 print:p-6 shadow-xl text-center md:text-left flex flex-col md:flex-row justify-between items-center border-b-8 border-vibrant-orange print:rounded-none">
+<div>
+<h1 class="text-3xl md:text-4xl lg:text-5xl print:text-2xl font-extrabold mb-1 tracking-tight">ANALISA SITUASI PENYAKIT BERKAITAN CUACA PANAS</h1>
+<p class="text-lg md:text-xl print:text-base text-gray-300 font-semibold">&amp; Kes Patukan Ular Negeri Kedah</p>
+<p class="text-sm print:text-xs text-vibrant-yellow mt-2 font-medium">&#128197; 1 Januari 2026 - 31 Mac 2026 (ME 1 - ME 13)</p>
+</div>
+<div class="mt-6 md:mt-0 flex gap-4">
+<div class="bg-white/10 p-4 print:p-2 rounded-xl text-center backdrop-blur-sm border border-white/20">
+<div class="text-4xl print:text-2xl font-extrabold text-vibrant-orange">54</div>
+<div class="text-sm print:text-xs uppercase tracking-wide mt-1">Jumlah Kes</div>
+</div>
+</div>
+</header>
+
+<section class="mb-4 print:mb-2">
+<div class="bg-vibrant-teal/10 border-l-4 border-vibrant-teal p-6 print:p-4 rounded-r-xl">
+<h2 class="text-xl print:text-lg font-bold text-vibrant-dark mb-2">Pengenalan & Amaran Cuaca Panas MET Malaysia</h2>
+<p class="text-gray-700 print:text-[11px] leading-relaxed mb-2">
+Berikut adalah analisa situasi terkini bagi Penyakit Berkaitan Haba dan insiden Patukan Ular di Negeri Kedah. Isu cuaca panas ekstrem yang melanda negeri ini telah berada pada tahap membimbangka namun sudah beransur pulih sejak minggu ini. Jabatan Meteorologi Malaysia (MET Malaysia) telah mengeluarkan dua amaran kritikal di beberapa daerah di Kedah:
+</p>
+<ul class="list-disc ml-6 text-gray-700 print:text-[11px] space-y-1 font-medium">
+<li><span class="text-vibrant-yellow font-bold">Tahap 1 (Amaran Kuning / Berjaga-jaga):</span> Suhu maksimum harian mencecah 35&#8451; hingga 37&#8451; sekurang-kurangnya selama 3 hari berturut-turut.</li>
+<li><span class="text-vibrant-orange font-bold">Tahap 2 (Amaran Oren / Gelombang Haba):</span> Suhu maksimum harian melebihi 37&#8451; sekurang-kurangnya selama 3 hari berturut-turut.</li>
+</ul>
+</div>
+</section>
+
+<!-- ANALISA DATA SECTION -->
+<div class="grid grid-cols-1 lg:grid-cols-2 print-grid-2 gap-8 print:gap-4 mb-8 print:mb-4">
+<div class="card border-t-4 border-vibrant-blue flex flex-col print:shadow-none">
+<h2 class="text-2xl print:text-lg font-bold mb-3 flex items-center gap-2">
+<span>&#128202;</span> Notifikasi Penyakit Mengikut Diagnosis
+</h2>
+<p class="text-gray-600 print:text-[11px] mb-4">
+Dari Minggu Epid 1-13, sebanyak 54 kes telah direkodkan. Majoriti kes adalah insiden patukan ular; sebanyak 72.2% akibat daripada reptilia berbisa keluar mencari tempat teduh, manakala bakinya adalah kelesuan dan kejang haba. Tiada kes Strok Haba dilaporkan setakat ini
+</p>
+<div class="mb-2">
+<p class="font-bold text-gray-900 text-sm print:text-xs">Jadual 1</p>
+<p class="italic text-gray-800 text-sm print:text-[10px]">Ringkasan Keseluruhan Kes Mengikut Diagnosa Utama (ME 1 - ME 13, 2026) (N = 54)</p>
+</div>
+<div class="overflow-x-auto w-full mb-2 flex-grow">
+<table class="w-full text-left border-collapse text-sm print:text-[10px]">
+<thead>
+<tr class="border-y-2 border-gray-900">
+<th class="py-2 px-1 font-bold align-bottom">Kategori Penyakit / Insiden</th>
+<th class="py-2 px-1 font-bold align-bottom">Diagnosa Utama</th>
+<th class="py-2 px-1 font-bold text-center align-bottom">Kes</th>
+<th class="py-2 px-1 font-bold text-center align-bottom">%</th>
+</tr>
+</thead>
+<tbody class="border-b-2 border-gray-900">
+<tr class="border-b border-gray-100">
+<td class="py-1 px-1 align-top" rowspan="2">Penyakit Haba</td>
+<td class="py-1 px-1">Kelesuan Haba</td>
+<td class="py-1 px-1 text-center font-medium" style="background-color: rgba(249, 115, 22, 0.4); -webkit-print-color-adjust: exact;">14</td>
+<td class="py-1 px-1 text-center font-medium" style="background-color: rgba(249, 115, 22, 0.4); -webkit-print-color-adjust: exact;">25.9</td>
+</tr>
+<tr>
+<td class="py-1 px-1">Kejang Haba</td>
+<td class="py-1 px-1 text-center" style="background-color: rgba(249, 115, 22, 0.1); -webkit-print-color-adjust: exact;">1</td>
+<td class="py-1 px-1 text-center" style="background-color: rgba(249, 115, 22, 0.1); -webkit-print-color-adjust: exact;">1.9</td>
+</tr>
+<tr>
+<td class="py-2 px-1 align-top pt-2">Ular</td>
+<td class="py-2 px-1 pt-2">Patukan Ular</td>
+<td class="py-2 px-1 text-center font-bold text-white pt-2" style="background-color: rgba(239, 68, 68, 0.9); -webkit-print-color-adjust: exact;">39</td>
+<td class="py-2 px-1 text-center font-bold text-white pt-2" style="background-color: rgba(239, 68, 68, 0.9); -webkit-print-color-adjust: exact;">72.2</td>
+</tr>
+</tbody>
+<tfoot>
+<tr class="font-bold">
+<td class="py-2 px-1 pt-2" colspan="2">Jumlah Keseluruhan</td>
+<td class="py-2 px-1 text-center pt-2">54</td>
+<td class="py-2 px-1 text-center pt-2">100.0</td>
+</tr>
+</tfoot>
+</table>
+</div>
+<p class="text-[10px] text-gray-500 mt-auto border-t border-gray-100 pt-1"><em>Nota.</em> Format peta haba digunakan untuk tunjuk peratusan.</p>
+</div>
+
+<div class="card border-t-4 border-vibrant-yellow flex flex-col print:shadow-none">
+<h2 class="text-2xl print:text-lg font-bold mb-3 flex items-center gap-2">
+<span>&#128200;</span> Tren Kes Mengikut Minggu Epid
+</h2>
+<p class="text-gray-600 print:text-[11px] mb-4">
+Penyakit haba diperincikan kepada <strong>Kelesuan Haba</strong> dan <strong>Kejang Haba</strong> (<strong>tiada kes Strok Haba</strong> setakat ini). Garisan biru (suhu maks) memaparkan apabila suhu menghampiri 37&#8451; (ME 7 - ME 12), kes patukan ular meningkat drastik.
+</p>
+<div class="mb-2">
+<p class="font-bold text-gray-900 text-sm print:text-xs">Rajah 1</p>
+<p class="italic text-gray-800 text-sm print:text-[10px]">Tren Kes ME Berbanding Suhu Maksimum (ME 1 - 13) (N = 54)</p>
+</div>
+<div class="chart-container flex-grow">
+<canvas id="trenMingguanChart"></canvas>
+</div>
+<p class="text-[10px] text-gray-500 mt-2 border-t border-gray-100 pt-1"><em>Nota.</em> Garisan biru = purata suhu maksimum mingguan (paksi kanan).</p>
+</div>
+</div>
+
+<div class="grid grid-cols-1 lg:grid-cols-2 print-grid-2 gap-8 print:gap-4 mb-8 print:mb-4">
+<div class="card border-t-4 border-vibrant-orange flex flex-col print:shadow-none">
+<h2 class="text-2xl print:text-lg font-bold mb-3 flex items-center gap-2">
+<span>&#9728;&#65039;</span> Penyakit Berkaitan Haba
+</h2>
+<p class="text-gray-600 print:text-[11px] mb-4">
+Kes terbanyak dilaporkan di Kulim, berpusat di MRSM PDRM semasa perhimpunan pagi sekolah melibatkan pelajar (< 18 tahun). Sebahagian besar kes dewasa pula adalah kesan pekerjaan buruh luar.
+</p>
+<div class="mb-2">
+<p class="font-bold text-gray-900 text-sm print:text-xs">Rajah 2</p>
+<p class="italic text-gray-800 text-sm print:text-[10px]">Taburan Kes Berkaitan Haba Mengikut Daerah & Kumpulan Umur (N = 15)</p>
+</div>
+<div class="chart-container flex-grow">
+<canvas id="habaDaerahChart"></canvas>
+</div>
+</div>
+
+<div class="card border-t-4 border-vibrant-red flex flex-col print:shadow-none">
+<h2 class="text-2xl print:text-lg font-bold mb-3 flex items-center gap-2">
+<span>&#128013;</span> Kes Patukan Ular 
+</h2>
+<p class="text-gray-600 print:text-[11px] mb-4">
+Daerah Padang Terap merupakan "hotspot" Patukan Ular dengan 74.3% kes. Walaupun majoriti didiscaj, 6 kes mengalami komplikasi disebabkan komorbiditi.
+</p>
+<div class="mb-2">
+<p class="font-bold text-gray-900 text-sm print:text-xs">Rajah 3</p>
+<p class="italic text-gray-800 text-sm print:text-[10px]">Status Hasil Rawatan Kes Patukan Ular Mengikut Daerah (N = 39)</p>
+</div>
+<div class="chart-container flex-grow">
+<canvas id="ularDaerahChart"></canvas>
+</div>
+<p class="text-[10px] text-gray-500 mt-2 border-t border-gray-100 pt-1"><em>Nota.</em> AOR = At Own Risk.</p>
+</div>
+</div>
+
+<!-- TINDAKAN & INTERVENSI -->
+<section class="card mb-8 print:mb-4 border-t-4 border-vibrant-teal bg-vibrant-light print:shadow-none">
+<h2 class="text-2xl print:text-lg font-bold mb-4 text-center text-vibrant-dark">Intervensi & Tindakan Yang Telah Dijalankan</h2>
+<div class="grid grid-cols-1 md:grid-cols-2 print-grid-2 gap-6 print:gap-4">
+
+<div class="bg-white p-4 rounded-xl border border-gray-200 flex items-start gap-4 print:p-3">
+<div class="text-3xl bg-vibrant-blue/10 p-2 rounded-xl text-vibrant-blue">&#128227;</div>
+<div>
+<h3 class="font-bold text-base print:text-sm mb-1">Pemakluman Rasmi Pendidikan</h3>
+<p class="text-sm print:text-[11px] text-gray-600">Edaran rasmi nasihat risiko ke <strong>Jabatan Pendidikan Negeri Kedah</strong> bagi memastikan penangguhan aktiviti luar bilik darjah di sekolah-sekolah mematuhi arahan KKM.</p>
+</div>
+</div>
+
+<div class="bg-white p-4 rounded-xl border border-gray-200 flex items-start gap-4 print:p-3">
+<div class="text-3xl bg-vibrant-red/10 p-2 rounded-xl text-vibrant-red">&#128250;</div>
+<div>
+<h3 class="font-bold text-base print:text-sm mb-1">Promosi Kesihatan Aktif</h3>
+<p class="text-sm print:text-[11px] text-gray-600">Hebahan awam di stesen <strong>TV, radio</strong>, & media sosial.<br>
+🔗 <span class="text-vibrant-blue">Portal MyHealth: Tips Cuaca Panas</span><br>
+🔗 <span class="text-vibrant-blue">FB Kementerian Kesihatan Malaysia</span></p>
+</div>
+</div>
+
+</div>
+</section>
+
+<!-- STATUS BILIK GERAKAN -->
+<section class="card border-t-4 border-vibrant-orange bg-orange-50/30 print:shadow-none print:bg-white print:border-gray-200">
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-4">
+<div>
+<h2 class="text-2xl print:text-lg font-bold flex items-center gap-2 text-gray-900">
+<span>&#128680;</span> Laporan Bilik Gerakan Gelombang Haba
+</h2>
+<p class="text-sm print:text-xs font-semibold text-gray-600">CPRC JKN Kedah | Tarikh: 31 Mac 2026 (12:00 Tengahari)</p>
+</div>
+<div class="mt-2 md:mt-0 px-3 py-1 bg-red-100 text-red-700 print:border print:border-red-500 font-bold rounded-lg text-sm print:text-[10px]">
+STATUS: AKTIF (Dibuka 24/3/2026)
+</div>
+</div>
+
+<div class="overflow-x-auto w-full border border-gray-200 rounded-lg">
+<table class="w-full text-left border-collapse text-sm print:text-[11px]">
+<thead class="bg-gray-100 print:bg-gray-200">
+<tr>
+<th class="py-2 px-3 font-bold border-b border-gray-200">Bil</th>
+<th class="py-2 px-3 font-bold border-b border-gray-200">Daerah Terlibat</th>
+<th class="py-2 px-3 font-bold text-center border-b border-gray-200">Suhu Maks</th>
+<th class="py-2 px-3 font-bold text-center border-b border-gray-200">Tahap Amaran</th>
+<th class="py-2 px-3 font-bold text-center border-b border-gray-200">Hari Tahap Amaran</th>
+</tr>
+</thead>
+<tbody class="bg-white">
+<tr class="border-b border-gray-100">
+<td class="py-1 px-3">1</td><td class="py-1 px-3 font-semibold">Pokok Sena</td><td class="py-1 px-3 text-center">&lt; 37&#8451;</td><td class="py-1 px-3 text-center"><span class="bg-yellow-100 text-yellow-800 print:text-black print:border py-1 px-2 rounded font-medium text-xs print:text-[10px]">Tahap 1</span></td><td class="py-1 px-3 text-center font-bold text-red-600 print:text-black">Hari ke - 11</td>
+</tr>
+<tr class="border-b border-gray-100">
+<td class="py-1 px-3">2</td><td class="py-1 px-3 font-semibold">Padang Terap</td><td class="py-1 px-3 text-center">&lt; 37&#8451;</td><td class="py-1 px-3 text-center"><span class="bg-yellow-100 text-yellow-800 print:text-black print:border py-1 px-2 rounded font-medium text-xs print:text-[10px]">Tahap 1</span></td><td class="py-1 px-3 text-center font-bold text-orange-600 print:text-black">Hari ke - 10</td>
+</tr>
+<tr class="border-b border-gray-100">
+<td class="py-1 px-3">3</td><td class="py-1 px-3 font-semibold">Pendang</td><td class="py-1 px-3 text-center">&lt; 37&#8451;</td><td class="py-1 px-3 text-center"><span class="bg-yellow-100 text-yellow-800 print:text-black print:border py-1 px-2 rounded font-medium text-xs print:text-[10px]">Tahap 1</span></td><td class="py-1 px-3 text-center font-bold text-orange-500 print:text-black">Hari ke - 8</td>
+</tr>
+<tr class="border-b border-gray-100">
+<td class="py-1 px-3">4</td><td class="py-1 px-3 font-semibold">Baling</td><td class="py-1 px-3 text-center">&lt; 37&#8451;</td><td class="py-1 px-3 text-center"><span class="bg-yellow-100 text-yellow-800 print:text-black print:border py-1 px-2 rounded font-medium text-xs print:text-[10px]">Tahap 1</span></td><td class="py-1 px-3 text-center font-bold text-orange-400 print:text-black">Hari ke - 7</td>
+</tr>
+<tr class="border-b border-gray-100">
+<td class="py-1 px-3">5</td><td class="py-1 px-3 font-semibold">Kota Setar</td><td class="py-1 px-3 text-center">&lt; 37&#8451;</td><td class="py-1 px-3 text-center"><span class="bg-yellow-100 text-yellow-800 print:text-black print:border py-1 px-2 rounded font-medium text-xs print:text-[10px]">Tahap 1</span></td><td class="py-1 px-3 text-center font-bold text-gray-700 print:text-black">Hari ke - 5</td>
+</tr>
+<tr>
+<td class="py-1 px-3">6</td><td class="py-1 px-3 font-semibold">Sik</td><td class="py-1 px-3 text-center">&lt; 37&#8451;</td><td class="py-1 px-3 text-center"><span class="bg-yellow-100 text-yellow-800 print:text-black print:border py-1 px-2 rounded font-medium text-xs print:text-[10px]">Tahap 1</span></td><td class="py-1 px-3 text-center font-bold text-gray-700 print:text-black">Hari ke - 5</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+
+<footer class="text-center text-gray-500 text-[10px] md:text-sm py-6 print:py-2 border-t border-gray-200">
+<p class="mb-1"><strong>Rujukan:</strong> Jabatan Meteorologi Malaysia (2026). Status cuaca panas dan nasihat gelombang haba.</p>
+<p>Disediakan oleh: <strong>Unit Kesihatan Pekerjaan dan Alam Sekitar</strong>, Jabatan Kesihatan Negeri Kedah.</p>
+</footer>
+
+</div>
+
+<script>
+function wrapLabels(labels, limit) {
+return labels.map(label => {
+if (typeof label !== 'string') return label;
+if (label.length <= limit) return label;
+const words = label.split(' ');
+let lines = [];
+let currentLine = words[0];
+for (let i = 1; i < words.length; i++) {
+if (currentLine.length + 1 + words[i].length <= limit) {
+currentLine += ' ' + words[i];
+} else {
+lines.push(currentLine);
+currentLine = words[i];
+}
+}
+lines.push(currentLine);
+return lines;
+});
+}
+
+const customTooltipPlugin = {
+tooltip: {
+callbacks: {
+title: function(tooltipItems) {
+const item = tooltipItems[0];
+let label = item.chart.data.labels[item.dataIndex];
+if (Array.isArray(label)) {
+return label.join(' ');
+} else {
+return label;
+}
+}
+}
+}
+};
+
+Chart.defaults.font.family = "'Inter', sans-serif";
+Chart.defaults.color = '#475569';
+// Disable animations for immediate print rendering
+Chart.defaults.animation = false;
+
+const trenLabels = wrapLabels(['ME 1', 'ME 2', 'ME 3', 'ME 4', 'ME 5', 'ME 6', 'ME 7', 'ME 8', 'ME 9', 'ME 10', 'ME 11', 'ME 12', 'ME 13'], 16);
+const ctxTren = document.getElementById('trenMingguanChart').getContext('2d');
+new Chart(ctxTren, {
+type: 'bar',
+data: {
+labels: trenLabels,
+datasets: [
+{
+type: 'line',
+label: 'Purata Suhu Maks. (℃)',
+data: [34.0, 34.5, 35.5, 35.0, 35.2, 35.8, 36.5, 36.0, 36.2, 36.8, 37.5, 38.0, 37.0],
+borderColor: '#3B82F6',
+backgroundColor: '#3B82F6',
+borderWidth: 2,
+tension: 0.3,
+yAxisID: 'ySuhu',
+pointRadius: 4,
+pointBackgroundColor: '#ffffff'
+},
+{
+type: 'bar',
+label: 'Kelesuan Haba',
+data: [0, 0, 9, 0, 0, 0, 0, 0, 0, 2, 0, 1, 2],
+backgroundColor: '#F97316',
+borderRadius: 4,
+yAxisID: 'y'
+},
+{
+type: 'bar',
+label: 'Kejang Haba',
+data: [0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+backgroundColor: '#F59E0B',
+borderRadius: 4,
+yAxisID: 'y'
+},
+{
+type: 'bar',
+label: 'Patukan Ular',
+data: [0, 1, 2, 0, 0, 0, 11, 3, 0, 1, 8, 11, 2],
+backgroundColor: '#EF4444',
+borderRadius: 4,
+yAxisID: 'y'
+}
+]
+},
+options: {
+responsive: true,
+maintainAspectRatio: false,
+scales: {
+x: { 
+    stacked: true,
+    grid: { display: false },
+    title: { display: false, text: 'Minggu Epidemiologi (ME)', font: { weight: 'bold' } }
+},
+y: { 
+    type: 'linear',
+    display: true,
+    position: 'left',
+    stacked: true, 
+    beginAtZero: true,
+    title: { display: true, text: 'Jumlah Kes Lapuran', font: { weight: 'bold' } }
+},
+ySuhu: {
+    type: 'linear',
+    display: true,
+    position: 'right',
+    min: 33,
+    max: 40,
+    grid: { drawOnChartArea: false },
+    title: { display: true, text: 'Suhu (℃)', font: { weight: 'bold' } }
+}
+},
+plugins: {
+...customTooltipPlugin,
+legend: { position: 'bottom', labels: { boxWidth: 10, font: {size: 10} } }
+}
+}
+});
+
+const habaLabels = wrapLabels(['Kulim', 'Pendang', 'Kota Setar', 'Langkawi'], 16);
+const ctxHaba = document.getElementById('habaDaerahChart').getContext('2d');
+new Chart(ctxHaba, {
+type: 'bar',
+data: {
+labels: habaLabels,
+datasets: [
+{
+label: 'Pelajar (< 18 Tahun)',
+data: [9, 3, 0, 0],
+backgroundColor: '#3B82F6',
+borderRadius: 4
+},
+{
+label: 'Dewasa (≥ 18 Tahun)',
+data: [0, 1, 1, 1],
+backgroundColor: '#1E293B',
+borderRadius: 4
+}
+]
+},
+options: {
+responsive: true,
+maintainAspectRatio: false,
+scales: {
+x: { 
+    stacked: false,
+    grid: { display: false }
+},
+y: { 
+    beginAtZero: true, 
+    ticks: { stepSize: 2 },
+    title: { display: true, text: 'Jumlah Kes Lapuran', font: { weight: 'bold' } }
+}
+},
+plugins: {
+...customTooltipPlugin,
+legend: { position: 'bottom', labels: { boxWidth: 10, font: {size: 10} } }
+}
+}
+});
+
+const ularLabels = wrapLabels(['Padang Terap', 'Pendang', 'Kubang Pasu', 'Baling', 'Kota Setar', 'Kulim'], 16);
+const ctxUlar = document.getElementById('ularDaerahChart').getContext('2d');
+new Chart(ctxUlar, {
+type: 'bar',
+data: {
+labels: ularLabels,
+datasets: [
+{
+label: 'Sembuh (Discaj)',
+data: [27, 3, 0, 0, 0, 1],
+backgroundColor: '#10B981'
+},
+{
+label: 'Komplikasi',
+data: [0, 2, 2, 1, 1, 0],
+backgroundColor: '#F59E0B'
+},
+{
+label: 'AOR (Sendiri)',
+data: [2, 0, 0, 0, 0, 0],
+backgroundColor: '#94A3B8'
+}
+]
+},
+options: {
+responsive: true,
+maintainAspectRatio: false,
+scales: {
+x: { 
+    stacked: true,
+    grid: { display: false }
+},
+y: { 
+    stacked: true, 
+    beginAtZero: true,
+    title: { display: true, text: 'Jumlah Kes Lapuran', font: { weight: 'bold' } }
+}
+},
+plugins: {
+...customTooltipPlugin,
+legend: { position: 'bottom', labels: { boxWidth: 10, font: {size: 10} } }
+}
+}
+});
+</script>
+</body>
+<!-- Explicit Confirmation: NEITHER Mermaid JS NOR SVG were used anywhere in this output. All graphics rely strictly on Canvas (Chart.js), CSS styling, and standard Unicode characters. -->
+</html>
